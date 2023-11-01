@@ -5,16 +5,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.5</version>
+		<version>2.7.17</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.sp.test</groupId>
+	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -30,50 +30,10 @@
 	</dependencies>
 
 	<build>
-		<!-- 固定的jar的名字，这样Dockerfile可以固定写 -->
-		<finalName>springboot-demo-helloworld</finalName>
-		<!-- 构建的插件 -->
 		<plugins>
-			<!-- springboot构建jar -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<!-- 构建docker镜像 -->
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>1.2.2</version>
-				<executions>
-					<execution>
-						<id>build-image</id>
-						<phase>package</phase>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!-- image 的名字 -->
-					<imageName>${project.build.finalName}</imageName>
-					<!-- image 的tag, 可以是多个 -->
-					<imageTags>
-						<imageTag>latest</imageTag>
-						<imageTag>${project.version}</imageTag>
-					</imageTags>
-					<!-- Dockerfile所在的目录 -->
-					<dockerDirectory>${project.basedir}</dockerDirectory>
-					<!-- 复制jar到docker的位置 -->
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<!--jar 包所在的路径，对应target目录-->
-							<directory>${project.build.directory}</directory>
-							<!-- 包含的jar　-->
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
